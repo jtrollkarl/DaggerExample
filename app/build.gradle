@@ -13,26 +13,46 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-    buildTypes {
-        dagger {
-            minifyEnabled false
-        }
-    }
+
     sourceSets {
-        dagger { java.srcDirs = ['src/dagger/java', 'src/dagger/java/'] } 
-        debug {java.srcDirs = ['src/debug/java', 'src/debug/java/'] }
+        dagger { java.srcDirs = ['src/dagger/java', 'src/dagger/java/'] }
+        nodagger { java.srcDirs = ['src/nodagger/java', 'src/nodagger/java/'] }
+    }
+
+    flavorDimensions "inject"
+
+    productFlavors {
+        dagger {
+            dimension "inject"
+            minSdkVersion 16
+            applicationId 'com.moducode.daggerexample'
+            targetSdkVersion 27
+            testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+            versionCode 1
+            versionName '1.0'
+            versionNameSuffix '-dagger'
+        }
+        nodagger {
+            dimension "inject"
+            minSdkVersion 16
+            applicationId 'com.moducode.daggerexample'
+            targetSdkVersion 27
+            testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+            versionCode 1
+            versionName '1.0'
+            versionNameSuffix '-nodagger'
+        }
     }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation 'com.android.support:support-v4:27.1.1'
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation 'com.android.support:design:27.1.1'
-
     //dagger2
     daggerImplementation 'com.google.dagger:dagger:2.6'
     kapt 'com.google.dagger:dagger-compiler:2.6'
@@ -51,8 +71,6 @@ dependencies {
     //glide
     implementation 'com.github.bumptech.glide:glide:4.7.1'
     kapt 'com.github.bumptech.glide:compiler:4.7.1'
-
-
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
