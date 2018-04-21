@@ -22,7 +22,7 @@ class EpisodeListRecycler(private val func: (EpisodeData) -> Unit): RecyclerView
     override fun onBindViewHolder(holder: EpisodeHolder, position: Int) {
         holder.bind(data[position], func)
     }
-    
+
     class EpisodeHolder(view: View): RecyclerView.ViewHolder(view){
 
         fun bind(episode: EpisodeData, func: (EpisodeData) -> Unit){
