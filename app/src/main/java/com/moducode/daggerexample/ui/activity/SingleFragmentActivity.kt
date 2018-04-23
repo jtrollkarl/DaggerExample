@@ -25,4 +25,8 @@ abstract class SingleFragmentActivity : AppCompatActivity() {
             supportFragmentManager.doTransaction { replace(R.id.fragment_container, newFragment) }
         }
     }
+
+    protected fun swapFragment(fragment: Fragment){
+        supportFragmentManager.doTransaction { replace(R.id.fragment_container, fragment) }
+    }
 }

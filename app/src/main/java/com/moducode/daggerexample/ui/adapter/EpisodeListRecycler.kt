@@ -4,8 +4,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.moducode.daggerexample.R
 import com.moducode.daggerexample.data.EpisodeData
+import com.moducode.daggerexample.toPx
 import kotlinx.android.synthetic.main.episode_list_item.view.*
 
 class EpisodeListRecycler(private val func: (EpisodeData) -> Unit): RecyclerView.Adapter<EpisodeListRecycler.EpisodeHolder>() {
@@ -27,6 +30,7 @@ class EpisodeListRecycler(private val func: (EpisodeData) -> Unit): RecyclerView
 
         fun bind(episode: EpisodeData, func: (EpisodeData) -> Unit){
             itemView.tv_episode_title.text = episode.name
+            Glide.with(itemView.context).apply { RequestOptions.overrideOf(100.toPx()).fitCenter() }.load(episode.image).into(itemView.iv_episode_image)
             itemView.setOnClickListener { func(episode) }
         }
 
