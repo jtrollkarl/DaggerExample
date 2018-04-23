@@ -1,9 +1,11 @@
 package com.moducode.daggerexample.data
 
+import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
-
+@Parcelize
 data class EpisodeData(
         @field:SerializedName("id")
         @field:Expose
@@ -41,20 +43,23 @@ data class EpisodeData(
         @field:SerializedName("_links")
         @field:Expose
         val links: Links
-)
+): Parcelable
 
+@Parcelize
 data class Links(
         @field:SerializedName("self")
         @field:Expose
         val self: Self
-)
+): Parcelable
 
+@Parcelize
 data class Self(
         @field:SerializedName("href")
         @field:Expose
         val href: String
-)
+): Parcelable
 
+@Parcelize
 data class Image(
         @field:SerializedName("medium")
         @field:Expose
@@ -62,4 +67,4 @@ data class Image(
         @field:SerializedName("original")
         @field:Expose
         val original: String
-)
+): Parcelable
