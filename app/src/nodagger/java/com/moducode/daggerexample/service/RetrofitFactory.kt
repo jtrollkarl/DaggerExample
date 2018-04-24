@@ -1,6 +1,5 @@
 package com.moducode.daggerexample.service
 
-import android.content.Context
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
