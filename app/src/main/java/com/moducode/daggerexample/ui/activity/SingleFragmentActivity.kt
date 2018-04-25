@@ -8,7 +8,7 @@ import com.moducode.daggerexample.doTransaction
 
 abstract class SingleFragmentActivity : AppCompatActivity() {
 
-    protected abstract val fragment: Fragment
+    protected abstract fun getFragment(): Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,12 +21,9 @@ abstract class SingleFragmentActivity : AppCompatActivity() {
         val savedFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
 
         if (savedFragment == null) {
-            val newFragment = fragment
+            val newFragment = getFragment()
             supportFragmentManager.doTransaction { replace(R.id.fragment_container, newFragment) }
         }
     }
 
-    protected fun swapFragment(fragment: Fragment){
-        supportFragmentManager.doTransaction { replace(R.id.fragment_container, fragment) }
-    }
 }

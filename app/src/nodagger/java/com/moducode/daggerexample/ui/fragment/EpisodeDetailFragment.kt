@@ -11,7 +11,7 @@ import com.moducode.daggerexample.R
 import com.moducode.daggerexample.data.EpisodeData
 
 
-const val ARG_EPISODE = "key_episode"
+
 
 class EpisodeDetailFragment : Fragment() {
 
@@ -27,6 +27,7 @@ class EpisodeDetailFragment : Fragment() {
     }
 
     companion object {
+        const val ARG_EPISODE = "key_episode"
 
         fun newInstance(episodeData: EpisodeData) = EpisodeDetailFragment().apply {
             arguments = Bundle().apply {

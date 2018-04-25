@@ -7,7 +7,7 @@ import com.moducode.daggerexample.ui.fragment.EpisodeListFragment
 
 class EpisodeListContainer : SingleFragmentActivity(), EpisodeListFragment.Callbacks {
 
-    override val fragment: Fragment = EpisodeListFragment()
+    override fun getFragment(): Fragment = EpisodeListFragment()
 
     override fun onEpisodeClick(data: EpisodeData) {
         startActivity(EpisodeDetailContainer.newIntent(this, data))
