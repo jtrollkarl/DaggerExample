@@ -30,7 +30,6 @@ class EpisodeListFragment : MvpFragment<EpisodeListContract.View, EpisodeListCon
     private lateinit var listener: Callbacks
     private lateinit var adapter: EpisodeListRecycler
 
-
     override fun createPresenter(): EpisodeListContract.Actions {
          return EpisodeListPresenter(RetrofitFactory.create(context?.cacheDir!!, EpisodeService::class.java), SchedulersImpl())
     }
