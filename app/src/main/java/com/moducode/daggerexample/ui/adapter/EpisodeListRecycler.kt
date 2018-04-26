@@ -11,12 +11,12 @@ import com.moducode.daggerexample.data.EpisodeData
 import com.moducode.daggerexample.toPx
 import kotlinx.android.synthetic.main.episode_list_item.view.*
 
-class EpisodeListRecycler(private val func: (EpisodeData) -> Unit): RecyclerView.Adapter<EpisodeListRecycler.EpisodeHolder>() {
+class EpisodeListRecycler(private val func: (EpisodeData) -> Unit) : RecyclerView.Adapter<EpisodeListRecycler.EpisodeHolder>() {
 
     lateinit var data: List<EpisodeData>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EpisodeHolder {
-       val view = LayoutInflater.from(parent.context).inflate(R.layout.episode_list_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.episode_list_item, parent, false)
         return EpisodeHolder(view)
     }
 
@@ -26,9 +26,9 @@ class EpisodeListRecycler(private val func: (EpisodeData) -> Unit): RecyclerView
         holder.bind(data[position], func)
     }
 
-    class EpisodeHolder(view: View): RecyclerView.ViewHolder(view){
+    class EpisodeHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bind(episode: EpisodeData, func: (EpisodeData) -> Unit){
+        fun bind(episode: EpisodeData, func: (EpisodeData) -> Unit) {
             itemView.tv_episode_title.text = episode.name
             Glide.with(itemView.context).apply { RequestOptions.overrideOf(100.toPx()).fitCenter() }.load(episode.image).into(itemView.iv_episode_image)
             itemView.setOnClickListener { func(episode) }

@@ -46,12 +46,13 @@ class EpisodeListFragment : MvpFragment<EpisodeListContract.View, EpisodeListCon
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = EpisodeListRecycler { listener.onEpisodeClick(it) }
+        adapter = EpisodeListRecycler { listener.onEpisodeClick(it) }
         val lm = LinearLayoutManager(context)
-
-        recycler_episodes.adapter = adapter
-        recycler_episodes.layoutManager = lm
-        recycler_episodes.addItemDecoration(DividerItemDecoration(context, lm.orientation))
+        recycler_episodes.apply {
+            this.adapter = adapter
+            layoutManager = lm
+            addItemDecoration(DividerItemDecoration(context, lm.orientation))
+        }
     }
 
     override fun handleEpisodeClick(episode: EpisodeData) {
