@@ -10,13 +10,15 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="start"
-        tools:src="@drawable/ic_launcher_background"/>
+        tools:src="@drawable/ic_launcher_background" />
 
     <TextView
         android:id="@+id/tv_episode_title"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="end|center"
-        tools:text="Episode name here"/>
+        android:textAlignment="center"
+        android:maxLines="3"
+        tools:text="This is a really looooooooooooooooooooooooooong title" />
 
 </FrameLayout>
