@@ -59,7 +59,7 @@ class EpisodeListFragment : MvpFragment<EpisodeListContract.View, EpisodeListCon
         recyclerAdapter = EpisodeListRecycler(data, {listener.onEpisodeClick(it)}).apply {
             notifyDataSetChanged()
         }
-
+        recycler_episodes.adapter = recyclerAdapter
     }
 
     override fun showError(error: Throwable) {

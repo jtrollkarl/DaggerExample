@@ -30,10 +30,9 @@ class EpisodeListRecycler(private val data: List<EpisodeData>,
 
         fun bind(episode: EpisodeData, func: (EpisodeData) -> Unit) {
             itemView.tv_episode_title.text = episode.name
-            Glide.with(itemView.context).apply { RequestOptions.overrideOf(100.toPx()).fitCenter() }.load(episode.image).into(itemView.iv_episode_image)
+            Glide.with(itemView.context).apply { RequestOptions.overrideOf(100.toPx()).fitCenter() }.load(episode.image.original).into(itemView.iv_episode_image)
             itemView.setOnClickListener { func(episode) }
         }
-
     }
 
 }
