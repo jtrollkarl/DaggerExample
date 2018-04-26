@@ -3,13 +3,11 @@ package com.moducode.daggerexample.ui.fragment
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.hannesdorfmann.mosby3.mvp.MvpFragment
 
 import com.moducode.daggerexample.R
@@ -28,7 +26,7 @@ class EpisodeListFragment : MvpFragment<EpisodeListContract.View, EpisodeListCon
     }
 
     private lateinit var listener: Callbacks
-    private lateinit var adapter: EpisodeListRecycler
+    private lateinit var recyclerAdapter: EpisodeListRecycler
 
     override fun createPresenter(): EpisodeListContract.Actions {
          return EpisodeListPresenter(RetrofitFactory.create(context?.cacheDir!!, EpisodeService::class.java), SchedulersImpl())
@@ -46,10 +44,8 @@ class EpisodeListFragment : MvpFragment<EpisodeListContract.View, EpisodeListCon
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = EpisodeListRecycler { listener.onEpisodeClick(it) }
         val lm = LinearLayoutManager(context)
         recycler_episodes.apply {
-            this.adapter = adapter
             layoutManager = lm
             addItemDecoration(DividerItemDecoration(context, lm.orientation))
         }
@@ -60,11 +56,18 @@ class EpisodeListFragment : MvpFragment<EpisodeListContract.View, EpisodeListCon
     }
 
     override fun setData(data: List<EpisodeData>) {
-        adapter.data = data
-        adapter.notifyDataSetChanged()
+        recyclerAdapter = EpisodeListRecycler(data, {listener.onEpisodeClick(it)}).apply {
+            notifyDataSetChanged()
+        }
+
     }
 
     override fun showError(error: Throwable) {
         shortToast(error.message)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.fetchEpisodes()
     }
 }

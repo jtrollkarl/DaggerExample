@@ -11,9 +11,9 @@ import com.moducode.daggerexample.data.EpisodeData
 import com.moducode.daggerexample.toPx
 import kotlinx.android.synthetic.main.episode_list_item.view.*
 
-class EpisodeListRecycler(private val func: (EpisodeData) -> Unit) : RecyclerView.Adapter<EpisodeListRecycler.EpisodeHolder>() {
-
-    lateinit var data: List<EpisodeData>
+class EpisodeListRecycler(private val data: List<EpisodeData>,
+                          private val func: (EpisodeData) -> Unit)
+    : RecyclerView.Adapter<EpisodeListRecycler.EpisodeHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EpisodeHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.episode_list_item, parent, false)
@@ -23,7 +23,7 @@ class EpisodeListRecycler(private val func: (EpisodeData) -> Unit) : RecyclerVie
     override fun getItemCount(): Int = data.size
 
     override fun onBindViewHolder(holder: EpisodeHolder, position: Int) {
-        holder.bind(data[position], func)
+        holder.bind(data.let { it[position] }, func)
     }
 
     class EpisodeHolder(view: View) : RecyclerView.ViewHolder(view) {
