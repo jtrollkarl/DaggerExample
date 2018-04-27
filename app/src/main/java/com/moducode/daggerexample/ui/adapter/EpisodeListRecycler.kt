@@ -23,14 +23,14 @@ class EpisodeListRecycler(private val data: List<EpisodeData>,
     override fun getItemCount(): Int = data.size
 
     override fun onBindViewHolder(holder: EpisodeHolder, position: Int) {
-        holder.bind(data.let { it[position] }, func)
+        holder.bind(data[position], func)
     }
 
     class EpisodeHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         fun bind(episode: EpisodeData, func: (EpisodeData) -> Unit) {
             itemView.tv_episode_title.text = episode.name
-            Glide.with(itemView.context).apply { RequestOptions.overrideOf(100.toPx()).fitCenter() }.load(episode.image.original).into(itemView.iv_episode_image)
+            Glide.with(itemView.context).apply { RequestOptions.overrideOf(100.toPx()).fitCenter() }.load(episode.image.medium).into(itemView.iv_episode_image)
             itemView.setOnClickListener { func(episode) }
         }
     }

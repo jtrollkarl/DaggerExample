@@ -18,8 +18,9 @@ class RetrofitFactory {
 
         fun <T> create(cacheFile: File, clazz: Class<T>): T {
             val interceptor = HttpLoggingInterceptor(
-                    HttpLoggingInterceptor.Logger { Timber.i(it) }
+                    HttpLoggingInterceptor.Logger { Timber.d(it) }
             )
+            interceptor.level = HttpLoggingInterceptor.Level.BASIC
 
             val cache = Cache(cacheFile, CACHE_SIZE)
 
