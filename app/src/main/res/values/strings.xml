@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">DaggerExample</string>
+
+    <string name="tv_airdate">Original airdate: %1$s</string>
+    <string name="tv_running_time">Running time: %1$s</string>
+
 </resources>

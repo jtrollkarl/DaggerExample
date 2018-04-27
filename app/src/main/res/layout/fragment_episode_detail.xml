@@ -11,8 +11,7 @@
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:fitsSystemWindows="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:fitsSystemWindows="true">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
@@ -35,7 +34,6 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="?android:actionBarSize"
                 android:fitsSystemWindows="true"
-                android:minHeight="100dp"
                 android:scaleType="fitXY"
                 app:layout_collapseMode="parallax" />
 
@@ -44,26 +42,43 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <TextView
                 android:id="@+id/tv_episode_title"
-                style="@style/TextAppearance.AppCompat.Body1"
+                style="@style/TextAppearance.AppCompat.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="Episode title" />
 
             <TextView
                 android:id="@+id/tv_episode_description"
+                style="@style/TextAppearance.AppCompat.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 tools:text="Episode description goes here" />
+
+            <TextView
+                android:id="@+id/tv_episode_airdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Original airdate: 12/12/12" />
+
+            <TextView
+                android:id="@+id/tv_episode_running_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                tools:text="Running time: 26m" />
 
         </LinearLayout>
 
@@ -73,7 +88,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:src="@mipmap/ic_launcher"
+        android:src="@drawable/ic_favorite_border_white_24dp"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|right|end" />
 

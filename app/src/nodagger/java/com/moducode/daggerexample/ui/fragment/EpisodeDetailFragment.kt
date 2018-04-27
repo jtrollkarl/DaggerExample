@@ -3,6 +3,8 @@ package com.moducode.daggerexample.ui.fragment
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.text.Html
+import android.text.Html.FROM_HTML_MODE_LEGACY
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,7 +28,9 @@ class EpisodeDetailFragment : Fragment() {
             val episode = it.getParcelable<EpisodeData>(ARG_EPISODE)
             Glide.with(this).load(episode.image.original).into(iv_episode_cover)
             tv_episode_title.text = episode.name
-            tv_episode_description.text = episode.summary
+            tv_episode_description.text = Html.fromHtml(episode.summary)
+            tv_episode_running_time.text = getString(R.string.tv_running_time, episode.runtime.toString())
+            tv_episode_airdate.text = getString(R.string.tv_airdate, episode.airdate)
         }
     }
 
