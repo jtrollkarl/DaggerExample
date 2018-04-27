@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 
 import com.moducode.daggerexample.R
 import com.moducode.daggerexample.data.EpisodeData
