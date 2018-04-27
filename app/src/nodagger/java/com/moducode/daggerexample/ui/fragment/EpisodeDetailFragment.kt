@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 
 import com.moducode.daggerexample.R
 import com.moducode.daggerexample.data.EpisodeData
-import kotlinx.android.synthetic.nodagger.fragment_episode_detail.*
+import kotlinx.android.synthetic.main.fragment_episode_detail.*
 
 
 class EpisodeDetailFragment : Fragment() {
