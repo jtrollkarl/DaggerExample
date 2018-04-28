@@ -1,9 +1,10 @@
-package com.moducode.daggerexample.data
+package com.moducode.daggerexample.room
 
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Delete
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.Query
+import com.moducode.daggerexample.data.EpisodeData
 
 @Dao
 interface EpisodeDao {
