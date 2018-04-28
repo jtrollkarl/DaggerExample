@@ -13,6 +13,8 @@ import com.hannesdorfmann.mosby3.mvp.MvpFragment
 
 import com.moducode.daggerexample.R
 import com.moducode.daggerexample.data.EpisodeData
+import com.moducode.daggerexample.room.DbRepoImpl
+import com.moducode.daggerexample.schedulers.SchedulersImpl
 import kotlinx.android.synthetic.main.fragment_episode_detail.*
 
 
@@ -25,7 +27,7 @@ class EpisodeDetailFragment :
         return inflater.inflate(R.layout.fragment_episode_detail, container, false)
     }
 
-    override fun createPresenter(): EpisodeDetailContract.Actions = EpisodeDetailPresenter()
+    override fun createPresenter(): EpisodeDetailContract.Actions = EpisodeDetailPresenter(DbRepoImpl(activity!!.applicationContext), SchedulersImpl())
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
