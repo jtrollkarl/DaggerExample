@@ -1,6 +1,7 @@
 package com.moducode.daggerexample.data
 
 import android.arch.persistence.room.ColumnInfo
+import android.arch.persistence.room.Embedded
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 import android.os.Parcelable
@@ -47,7 +48,7 @@ data class EpisodeData(
         @field:SerializedName("runtime")
         @field:Expose
         val runtime: Int,
-        @field:ColumnInfo(name = "image")
+        @field:Embedded
         @field:SerializedName("image")
         @field:Expose
         val image: Image,
@@ -55,19 +56,23 @@ data class EpisodeData(
         @field:SerializedName("summary")
         @field:Expose
         val summary: String,
-        @field:ColumnInfo(name = "_links")
+        @field:Embedded
         @field:SerializedName("_links")
         @field:Expose
         val links: Links
 ) : Parcelable
 
+
+@Entity(tableName = "links")
 @Parcelize
 data class Links(
+        @field:Embedded
         @field:SerializedName("self")
         @field:Expose
         val self: Self
 ) : Parcelable
 
+@Entity(tableName = "self")
 @Parcelize
 data class Self(
         @field:SerializedName("href")
@@ -75,6 +80,8 @@ data class Self(
         val href: String
 ) : Parcelable
 
+
+@Entity(tableName = "image")
 @Parcelize
 data class Image(
         @field:SerializedName("medium")
