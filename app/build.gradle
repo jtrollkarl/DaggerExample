@@ -77,6 +77,7 @@ dependencies {
     kapt 'com.github.bumptech.glide:compiler:4.7.1'
     //room
     implementation "android.arch.persistence.room:runtime:1.0.0"
+    kapt "android.arch.persistence.room:compiler:1.0.0"
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
     //test
     testImplementation 'junit:junit:4.12'
