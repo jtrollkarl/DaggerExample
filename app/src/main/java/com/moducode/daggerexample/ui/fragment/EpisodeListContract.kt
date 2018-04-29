@@ -14,6 +14,7 @@ interface EpisodeListContract {
 
     interface Actions: MvpPresenter<View> {
         fun fetchEpisodes()
+        fun fetchFavourites()
     }
 
 }

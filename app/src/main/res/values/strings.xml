@@ -3,5 +3,7 @@
 
     <string name="tv_airdate">Original airdate: %1$s</string>
     <string name="tv_running_time">Running time: %1$s</string>
+    <string name="menu_favorites">Show favorites</string>
+    <string name="menu_fetch_episodes">Show all episodes</string>
 
 </resources>

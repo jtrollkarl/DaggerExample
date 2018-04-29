@@ -1,12 +1,13 @@
 package com.moducode.daggerexample.ui.fragment
 
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter
+import com.moducode.daggerexample.room.DbRepo
 import com.moducode.daggerexample.schedulers.SchedulersBase
 import com.moducode.daggerexample.service.EpisodeService
 import timber.log.Timber
 
-class EpisodeListPresenter(val episodeService: EpisodeService, val schedulers: SchedulersBase) : MvpBasePresenter<EpisodeListContract.View>(),
-        EpisodeListContract.Actions {
+class EpisodeListPresenter(private val episodeService: EpisodeService, private val schedulers: SchedulersBase, private val dbRepo: DbRepo)
+    : MvpBasePresenter<EpisodeListContract.View>(), EpisodeListContract.Actions {
 
 
     override fun fetchEpisodes() {
@@ -23,5 +24,17 @@ class EpisodeListPresenter(val episodeService: EpisodeService, val schedulers: S
                 )
     }
 
-
+    override fun fetchFavourites() {
+        dbRepo.getFavEpisodes()
+                .subscribeOn(schedulers.io())
+                .observeOn(schedulers.ui())
+                .subscribe(
+                        { next -> ifViewAttached { it.setData(next) } },
+                        { e ->
+                            Timber.e(e)
+                            ifViewAttached { it.showError(e) }
+                        },
+                        { Timber.d("favourites fetch complete") }
+                )
+    }
 }
