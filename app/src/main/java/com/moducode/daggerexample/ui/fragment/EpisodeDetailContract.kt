@@ -12,7 +12,6 @@ interface EpisodeDetailContract {
 
     interface Actions: MvpPresenter<View>{
         fun saveEpisode(episodeData: EpisodeData)
-        fun deleteEpisode(episodeData: EpisodeData)
     }
 
 }

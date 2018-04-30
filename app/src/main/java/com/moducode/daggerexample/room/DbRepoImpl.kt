@@ -21,4 +21,8 @@ class DbRepoImpl(context: Context) : DbRepo {
     override fun insertEpisodes(vararg episodes: EpisodeData): Completable {
         return Completable.fromCallable { db.episodeDao().insertEpisode(*episodes) }
     }
+
+    override fun checkEpisodeExists(data: EpisodeData): Flowable<List<EpisodeData>> {
+        return Flowable.fromCallable {db.episodeDao().checkEpisodeExists(data.id)}
+    }
 }

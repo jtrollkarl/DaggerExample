@@ -12,23 +12,24 @@ class EpisodeDetailPresenter(private val dbRepo: DbRepo, private val schedulersB
 
 
     override fun saveEpisode(episodeData: EpisodeData) {
-        dbRepo.insertEpisodes(episodeData)
+        dbRepo.checkEpisodeExists(episodeData)
                 .subscribeOn(schedulersBase.io())
                 .observeOn(schedulersBase.ui())
-                .subscribe(
-                        { Timber.d("insert for ${episodeData.id} complete") },
-                        { Timber.e(it.message) }
+                .flatMap { list ->
+                    if (list.isEmpty()) {
+                        Timber.d("Episode ${episodeData.number} did not exist. Inserting...")
+                        return@flatMap dbRepo.insertEpisodes(episodeData).toFlowable<Unit>().subscribeOn(schedulersBase.io()).observeOn(schedulersBase.ui())
+                    }else{
+                        Timber.d("Episode ${episodeData.number} existed. Deleting...")
+                        return@flatMap dbRepo.deleteEpisode(episodeData).toFlowable<Unit>().subscribeOn(schedulersBase.io()).observeOn(schedulersBase.ui())
+                    }
+                }.subscribe(
+                        { Timber.d("Insert/delete onNext")},
+                        { e -> Timber.e(e) },
+                        { Timber.d("Insert/delete complete") }
                 )
-    }
 
-    override fun deleteEpisode(episodeData: EpisodeData) {
-        dbRepo.deleteEpisode(episodeData)
-                .subscribeOn(schedulersBase.io())
-                .observeOn(schedulersBase.ui())
-                .subscribe(
-                        { Timber.d("delete for ${episodeData.id} complete") },
-                        { Timber.e(it.message) }
-                )
+
     }
 
 }

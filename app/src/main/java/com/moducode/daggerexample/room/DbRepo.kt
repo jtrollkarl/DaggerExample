@@ -12,4 +12,6 @@ interface DbRepo {
 
     fun insertEpisodes(vararg episodes: EpisodeData): Completable
 
+    fun checkEpisodeExists(data: EpisodeData): Flowable<List<EpisodeData>>
+
 }
