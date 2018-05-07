@@ -6,9 +6,9 @@ import com.moducode.daggerexample.data.EpisodeData
 import io.reactivex.Completable
 import io.reactivex.Flowable
 
-class DbRepoImpl(context: Context) : DbRepo {
+class DbRepoImpl : DbRepo {
 
-    private val db = Room.databaseBuilder(context, EpisodeDB::class.java, "db-episodes").build()
+    lateinit var db: EpisodeDB
 
     override fun getFavEpisodes(): Flowable<List<EpisodeData>> {
         return Flowable.fromCallable { db.episodeDao().getEpisodes() }
@@ -23,6 +23,6 @@ class DbRepoImpl(context: Context) : DbRepo {
     }
 
     override fun checkEpisodeExists(data: EpisodeData): Flowable<List<EpisodeData>> {
-        return Flowable.fromCallable {db.episodeDao().checkEpisodeExists(data.id)}
+        return Flowable.fromCallable { db.episodeDao().checkEpisodeExists(data.id) }
     }
 }
