@@ -2,9 +2,7 @@ package com.moducode.daggerexample.ui.fragment
 
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.text.Html
-import android.text.Html.FROM_HTML_MODE_LEGACY
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +10,9 @@ import com.bumptech.glide.Glide
 import com.hannesdorfmann.mosby3.mvp.MvpFragment
 
 import com.moducode.daggerexample.R
+import com.moducode.daggerexample.buildPresenter
 import com.moducode.daggerexample.data.EpisodeData
-import com.moducode.daggerexample.room.DbRepoImpl
-import com.moducode.daggerexample.schedulers.SchedulersImpl
+
 import kotlinx.android.synthetic.main.fragment_episode_detail.*
 
 
@@ -22,12 +20,11 @@ class EpisodeDetailFragment :
         MvpFragment<EpisodeDetailContract.View, EpisodeDetailContract.Actions>(),
         EpisodeDetailContract.View {
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_episode_detail, container, false)
     }
 
-    override fun createPresenter(): EpisodeDetailContract.Actions = EpisodeDetailPresenter(DbRepoImpl(activity!!.applicationContext), SchedulersImpl())
+    override fun createPresenter(): EpisodeDetailContract.Actions = buildPresenter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

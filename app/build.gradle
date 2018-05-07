@@ -58,7 +58,7 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation 'com.android.support:design:27.1.1'
     //dagger2
-    daggerImplementation 'com.google.dagger:dagger:2.6'
+    implementation 'com.google.dagger:dagger:2.6'
     kapt 'com.google.dagger:dagger-compiler:2.6'
     //timber
     implementation 'com.jakewharton.timber:timber:4.7.0'
