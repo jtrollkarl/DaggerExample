@@ -7,6 +7,8 @@ import com.moducode.daggerexample.schedulers.SchedulersImpl
 import com.moducode.daggerexample.service.EpisodeService
 import com.moducode.daggerexample.service.RetrofitFactory
 import com.moducode.daggerexample.ui.fragment.*
+import com.moducode.daggerexample.ui.fragment.contract.EpisodeDetailContract
+import com.moducode.daggerexample.ui.fragment.contract.EpisodeListContract
 
 
 fun EpisodeDetailFragment.buildPresenter(): EpisodeDetailContract.Actions = EpisodeDetailPresenter()

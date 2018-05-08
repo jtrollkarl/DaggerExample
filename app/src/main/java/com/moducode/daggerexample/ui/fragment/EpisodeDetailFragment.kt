@@ -12,6 +12,7 @@ import com.hannesdorfmann.mosby3.mvp.MvpFragment
 import com.moducode.daggerexample.R
 import com.moducode.daggerexample.buildPresenter
 import com.moducode.daggerexample.data.EpisodeData
+import com.moducode.daggerexample.ui.fragment.contract.EpisodeDetailContract
 
 import kotlinx.android.synthetic.main.fragment_episode_detail.*
 

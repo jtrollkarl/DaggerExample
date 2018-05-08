@@ -4,6 +4,7 @@ import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter
 import com.moducode.daggerexample.room.DbRepo
 import com.moducode.daggerexample.schedulers.SchedulersBase
 import com.moducode.daggerexample.service.EpisodeService
+import com.moducode.daggerexample.ui.fragment.contract.EpisodeListContract
 import timber.log.Timber
 import javax.inject.Inject
 

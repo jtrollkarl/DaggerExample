@@ -1,4 +1,4 @@
-package com.moducode.daggerexample.ui.fragment
+package com.moducode.daggerexample.ui.fragment.contract
 
 import com.hannesdorfmann.mosby3.mvp.MvpPresenter
 import com.hannesdorfmann.mosby3.mvp.MvpView

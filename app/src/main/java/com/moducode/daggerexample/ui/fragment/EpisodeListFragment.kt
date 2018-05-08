@@ -11,12 +11,9 @@ import com.hannesdorfmann.mosby3.mvp.MvpFragment
 import com.moducode.daggerexample.R
 import com.moducode.daggerexample.buildPresenter
 import com.moducode.daggerexample.data.EpisodeData
-import com.moducode.daggerexample.room.DbRepoImpl
-import com.moducode.daggerexample.schedulers.SchedulersImpl
-import com.moducode.daggerexample.service.EpisodeService
-import com.moducode.daggerexample.service.RetrofitFactory
 import com.moducode.daggerexample.shortToast
 import com.moducode.daggerexample.ui.adapter.EpisodeListRecycler
+import com.moducode.daggerexample.ui.fragment.contract.EpisodeListContract
 import kotlinx.android.synthetic.main.fragment_episode_list.*
 
 class EpisodeListFragment : MvpFragment<EpisodeListContract.View, EpisodeListContract.Actions>(), EpisodeListContract.View {
