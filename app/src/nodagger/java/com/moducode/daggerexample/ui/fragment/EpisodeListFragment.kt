@@ -9,6 +9,7 @@ import android.view.*
 import com.hannesdorfmann.mosby3.mvp.MvpFragment
 
 import com.moducode.daggerexample.R
+import com.moducode.daggerexample.buildPresenter
 import com.moducode.daggerexample.data.EpisodeData
 import com.moducode.daggerexample.room.DbRepoImpl
 import com.moducode.daggerexample.schedulers.SchedulersImpl
@@ -33,9 +34,7 @@ class EpisodeListFragment : MvpFragment<EpisodeListContract.View, EpisodeListCon
     private var isFavoritesSelected: Boolean = false
 
 
-    override fun createPresenter(): EpisodeListContract.Actions {
-        return EpisodeListPresenter(RetrofitFactory.create(context?.cacheDir!!, EpisodeService::class.java), SchedulersImpl(), DbRepoImpl(activity!!.applicationContext))
-    }
+    override fun createPresenter(): EpisodeListContract.Actions = buildPresenter()
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)

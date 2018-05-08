@@ -4,9 +4,9 @@ import android.arch.persistence.room.Room
 import com.moducode.daggerexample.room.DbRepoImpl
 import com.moducode.daggerexample.room.EpisodeDB
 import com.moducode.daggerexample.schedulers.SchedulersImpl
-import com.moducode.daggerexample.ui.fragment.EpisodeDetailContract
-import com.moducode.daggerexample.ui.fragment.EpisodeDetailFragment
-import com.moducode.daggerexample.ui.fragment.EpisodeDetailPresenter
+import com.moducode.daggerexample.service.EpisodeService
+import com.moducode.daggerexample.service.RetrofitFactory
+import com.moducode.daggerexample.ui.fragment.*
 
 
 fun EpisodeDetailFragment.buildPresenter(): EpisodeDetailContract.Actions = EpisodeDetailPresenter()
@@ -17,6 +17,14 @@ fun EpisodeDetailFragment.buildPresenter(): EpisodeDetailContract.Actions = Epis
             schedulersBase = SchedulersImpl()
         }
 
+fun EpisodeListFragment.buildPresenter(): EpisodeListContract.Actions = EpisodeListPresenter()
+        .apply {
+            episodeService = RetrofitFactory.create(this@buildPresenter.context?.cacheDir!!, EpisodeService::class.java)
+            schedulers = SchedulersImpl()
+            dbRepo = DbRepoImpl().apply {
+                db = Room.databaseBuilder(this@buildPresenter.context?.applicationContext!!, EpisodeDB::class.java, "db-episodes").build()
+            }
+        }
 
 
 
