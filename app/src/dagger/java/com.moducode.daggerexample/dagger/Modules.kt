@@ -1,9 +1,18 @@
 package com.moducode.daggerexample.dagger
 
+import android.arch.persistence.room.Room
+import android.arch.persistence.room.RoomDatabase
 import android.content.Context
+import com.moducode.daggerexample.room.DbRepo
+import com.moducode.daggerexample.room.DbRepoImpl
+import com.moducode.daggerexample.room.EpisodeDB
+import com.moducode.daggerexample.schedulers.SchedulersBase
 import com.moducode.daggerexample.service.EpisodeService
 import dagger.Module
 import dagger.Provides
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -25,9 +34,34 @@ class EpisodeServiceModule {
 }
 
 @Module(includes = [ContextModule::class])
+class DatabaseModule{
+
+    @Provides
+    @Singleton
+    fun provideDatabaseImpl(context: Context): DbRepo = DbRepoImpl().apply { this.db = Room.databaseBuilder(context, EpisodeDB::class.java, "db-episodes").build() }
+
+}
+
+@Module
+class SchedulerModule{
+
+    @Provides
+    @Singleton
+    fun provideSchedulers(): SchedulersBase = object:SchedulersBase{
+        override fun io(): Scheduler = Schedulers.io()
+
+        override fun ui(): Scheduler = AndroidSchedulers.mainThread()
+
+        override fun compute(): Scheduler = Schedulers.computation()
+    }
+
+}
+
+@Module(includes = [ContextModule::class])
 class RetrofitModule{
 
     @Provides
+    @Singleton
     fun provideRetrofit(httpClient: OkHttpClient): Retrofit =
             Retrofit.Builder()
                     .client(httpClient)
@@ -56,9 +90,9 @@ class RetrofitModule{
 }
 
 @Module
-class ContextModule {
+class ContextModule(val context: Context) {
 
     @Provides
-    fun provideContext(context: Context): Context = context
+    fun provideContext(): Context = context
 
 }
