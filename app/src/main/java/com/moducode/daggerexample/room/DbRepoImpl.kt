@@ -1,13 +1,13 @@
 package com.moducode.daggerexample.room
 
-import android.arch.persistence.room.Room
-import android.content.Context
 import com.moducode.daggerexample.data.EpisodeData
 import io.reactivex.Completable
 import io.reactivex.Flowable
+import javax.inject.Inject
 
 class DbRepoImpl : DbRepo {
 
+    @Inject
     lateinit var db: EpisodeDB
 
     override fun getFavEpisodes(): Flowable<List<EpisodeData>> {
