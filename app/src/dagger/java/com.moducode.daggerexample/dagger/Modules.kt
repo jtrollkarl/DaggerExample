@@ -79,8 +79,7 @@ class RetrofitModule{
                     .build()
 
     @Provides
-    fun providesInterceptor(): Interceptor = HttpLoggingInterceptor(
-            HttpLoggingInterceptor.Logger { Timber.d(it) })
+    fun providesInterceptor(): Interceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { Timber.d(it) })
             .apply { level = HttpLoggingInterceptor.Level.BASIC }
 
 
