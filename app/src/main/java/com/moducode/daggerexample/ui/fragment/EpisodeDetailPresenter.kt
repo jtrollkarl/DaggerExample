@@ -8,13 +8,9 @@ import com.moducode.daggerexample.ui.fragment.contract.EpisodeDetailContract
 import timber.log.Timber
 import javax.inject.Inject
 
-class EpisodeDetailPresenter :
-        MvpBasePresenter<EpisodeDetailContract.View>(),
-        EpisodeDetailContract.Actions {
-
-
-    @Inject lateinit var dbRepo: DbRepo
-    @Inject lateinit var schedulersBase: SchedulersBase
+class EpisodeDetailPresenter @Inject constructor(private val dbRepo: DbRepo,
+                                                 private val schedulersBase: SchedulersBase)
+    : MvpBasePresenter<EpisodeDetailContract.View>(), EpisodeDetailContract.Actions {
 
     override fun saveEpisode(episodeData: EpisodeData) {
         dbRepo.checkEpisodeExists(episodeData)

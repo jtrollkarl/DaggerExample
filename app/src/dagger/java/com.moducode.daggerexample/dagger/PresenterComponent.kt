@@ -9,8 +9,8 @@ import javax.inject.Singleton
 @Component(modules = [SchedulerModule::class, DatabaseModule::class, EpisodeServiceModule::class])
 interface PresenterComponent {
 
-    fun injectEpisodeDetailPresenter(presenter: EpisodeDetailPresenter)
+    fun buildEpisodeDetailPresenter(): EpisodeDetailPresenter
 
-    fun injectEpisodeListPresenter(presenter: EpisodeListPresenter)
+    fun buildEpisodeListPresenter(): EpisodeListPresenter
 
 }

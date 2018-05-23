@@ -8,11 +8,12 @@ import com.moducode.daggerexample.ui.fragment.contract.EpisodeListContract
 import timber.log.Timber
 import javax.inject.Inject
 
-class EpisodeListPresenter : MvpBasePresenter<EpisodeListContract.View>(), EpisodeListContract.Actions {
+class EpisodeListPresenter @Inject constructor(private val episodeService: EpisodeService,
+                                               private val schedulers: SchedulersBase,
+                                               private val dbRepo: DbRepo)
+    : MvpBasePresenter<EpisodeListContract.View>(), EpisodeListContract.Actions {
 
-    @Inject lateinit var episodeService: EpisodeService
-    @Inject lateinit var schedulers: SchedulersBase
-    @Inject lateinit var dbRepo: DbRepo
+
 
 
     override fun fetchEpisodes() {
