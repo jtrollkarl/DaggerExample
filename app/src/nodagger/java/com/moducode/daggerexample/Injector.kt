@@ -11,22 +11,19 @@ import com.moducode.daggerexample.ui.fragment.contract.EpisodeDetailContract
 import com.moducode.daggerexample.ui.fragment.contract.EpisodeListContract
 
 
-fun EpisodeDetailFragment.buildPresenter(): EpisodeDetailContract.Actions = EpisodeDetailPresenter()
-        .apply {
-            dbRepo = DbRepoImpl().apply {
-                db = Room.databaseBuilder(this@buildPresenter.context?.applicationContext!!, EpisodeDB::class.java, "db-episodes").build()
-            }
-            schedulersBase = SchedulersImpl()
-        }
+fun EpisodeDetailFragment.buildPresenter(): EpisodeDetailContract.Actions {
+    return EpisodeDetailPresenter(
+            DbRepoImpl().apply { db = Room.databaseBuilder(this@buildPresenter.context?.applicationContext!!, EpisodeDB::class.java, "db-episodes").build() },
+            SchedulersImpl())
+}
 
-fun EpisodeListFragment.buildPresenter(): EpisodeListContract.Actions = EpisodeListPresenter()
-        .apply {
-            episodeService = RetrofitFactory.create(this@buildPresenter.context?.cacheDir!!, EpisodeService::class.java)
-            schedulers = SchedulersImpl()
-            dbRepo = DbRepoImpl().apply {
-                db = Room.databaseBuilder(this@buildPresenter.context?.applicationContext!!, EpisodeDB::class.java, "db-episodes").build()
-            }
-        }
+
+fun EpisodeListFragment.buildPresenter(): EpisodeListContract.Actions {
+    return EpisodeListPresenter(RetrofitFactory.create(this@buildPresenter.context?.cacheDir!!, EpisodeService::class.java),
+            SchedulersImpl(),
+            DbRepoImpl().apply { db = Room.databaseBuilder(this@buildPresenter.context?.applicationContext!!, EpisodeDB::class.java, "db-episodes").build() }
+    )
+}
 
 
 
