@@ -38,7 +38,7 @@ class DatabaseModule{
 
     @Provides
     @Singleton
-    fun provideDatabaseImpl(context: Context): DbRepo = DbRepoImpl().apply { this.db = Room.databaseBuilder(context, EpisodeDB::class.java, "db-episodes").build() }
+    fun provideDatabase(context: Context): DbRepo = DbRepoImpl(Room.databaseBuilder(context, EpisodeDB::class.java, "db-episode").build())
 
 }
 
@@ -62,15 +62,16 @@ class RetrofitModule{
 
     @Provides
     @Singleton
-    fun provideRetrofit(httpClient: OkHttpClient): Retrofit =
+    fun provideRetrofit(httpClient: OkHttpClient, gson: GsonConverterFactory, callAdapter: RxJava2CallAdapterFactory): Retrofit =
             Retrofit.Builder()
                     .client(httpClient)
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .addCallAdapterFactory(callAdapter)
                     .baseUrl("http://api.tvmaze.com/")
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(gson)
                     .build()
 
     @Provides
+    @Singleton
     fun provideHttpClient(interceptor: Interceptor, cache: Cache): OkHttpClient =
             OkHttpClient
                     .Builder()
@@ -79,12 +80,22 @@ class RetrofitModule{
                     .build()
 
     @Provides
-    fun providesInterceptor(): Interceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { Timber.d(it) })
+    @Singleton
+    fun provideInterceptor(): Interceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { Timber.d(it) })
             .apply { level = HttpLoggingInterceptor.Level.BASIC }
 
 
     @Provides
+    @Singleton
     fun provideCache(context: Context): Cache = Cache(context.cacheDir, 5 * 1024 * 1024)
+
+    @Provides
+    @Singleton
+    fun provideRxCallAdapter(): RxJava2CallAdapterFactory = RxJava2CallAdapterFactory.create()
+
+    @Provides
+    @Singleton
+    fun provideGson(): GsonConverterFactory = GsonConverterFactory.create()
 
 }
 

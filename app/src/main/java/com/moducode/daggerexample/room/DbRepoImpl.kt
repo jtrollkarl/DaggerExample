@@ -5,10 +5,7 @@ import io.reactivex.Completable
 import io.reactivex.Flowable
 import javax.inject.Inject
 
-class DbRepoImpl : DbRepo {
-
-    @Inject
-    lateinit var db: EpisodeDB
+class DbRepoImpl @Inject constructor(private val db: EpisodeDB) : DbRepo {
 
     override fun getFavEpisodes(): Flowable<List<EpisodeData>> {
         return Flowable.fromCallable { db.episodeDao().getEpisodes() }
