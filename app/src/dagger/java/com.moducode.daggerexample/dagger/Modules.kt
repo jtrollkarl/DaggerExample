@@ -1,7 +1,6 @@
 package com.moducode.daggerexample.dagger
 
 import android.arch.persistence.room.Room
-import android.arch.persistence.room.RoomDatabase
 import android.content.Context
 import com.moducode.daggerexample.room.DbRepo
 import com.moducode.daggerexample.room.DbRepoImpl
@@ -24,11 +23,11 @@ import timber.log.Timber
 
 import javax.inject.Singleton
 
-@Module
+@Module(includes = [RetrofitModule::class])
 class EpisodeServiceModule {
 
     @Provides
-    @PresenterScope
+    @Singleton
     fun provideEpisodeService(retrofit: Retrofit): EpisodeService = retrofit.create(EpisodeService::class.java)
 
 }
@@ -37,7 +36,7 @@ class EpisodeServiceModule {
 class DatabaseModule{
 
     @Provides
-    @AppScope
+    @Singleton
     fun provideDatabase(context: Context): DbRepo = DbRepoImpl(Room.databaseBuilder(context, EpisodeDB::class.java, "db-episode").build())
 
 }
@@ -46,7 +45,7 @@ class DatabaseModule{
 class SchedulerModule{
 
     @Provides
-    @AppScope
+    @Singleton
     fun provideSchedulers(): SchedulersBase = object:SchedulersBase{
         override fun io(): Scheduler = Schedulers.io()
 
@@ -61,7 +60,7 @@ class SchedulerModule{
 class RetrofitModule{
 
     @Provides
-    @AppScope
+    @Singleton
     fun provideRetrofit(httpClient: OkHttpClient, gson: GsonConverterFactory, callAdapter: RxJava2CallAdapterFactory): Retrofit =
             Retrofit.Builder()
                     .client(httpClient)
@@ -71,7 +70,7 @@ class RetrofitModule{
                     .build()
 
     @Provides
-    @AppScope
+    @Singleton
     fun provideHttpClient(interceptor: Interceptor, cache: Cache): OkHttpClient =
             OkHttpClient
                     .Builder()
@@ -80,21 +79,21 @@ class RetrofitModule{
                     .build()
 
     @Provides
-    @AppScope
+    @Singleton
     fun provideInterceptor(): Interceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { Timber.d(it) })
             .apply { level = HttpLoggingInterceptor.Level.BASIC }
 
 
     @Provides
-    @AppScope
+    @Singleton
     fun provideCache(context: Context): Cache = Cache(context.cacheDir, 5 * 1024 * 1024)
 
     @Provides
-    @AppScope
+    @Singleton
     fun provideRxCallAdapter(): RxJava2CallAdapterFactory = RxJava2CallAdapterFactory.create()
 
     @Provides
-    @AppScope
+    @Singleton
     fun provideGson(): GsonConverterFactory = GsonConverterFactory.create()
 
 }
