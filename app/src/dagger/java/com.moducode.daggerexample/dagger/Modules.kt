@@ -24,11 +24,11 @@ import timber.log.Timber
 
 import javax.inject.Singleton
 
-@Module(includes = [RetrofitModule::class])
+@Module
 class EpisodeServiceModule {
 
     @Provides
-    @Singleton
+    @PresenterScope
     fun provideEpisodeService(retrofit: Retrofit): EpisodeService = retrofit.create(EpisodeService::class.java)
 
 }
@@ -37,7 +37,7 @@ class EpisodeServiceModule {
 class DatabaseModule{
 
     @Provides
-    @Singleton
+    @AppScope
     fun provideDatabase(context: Context): DbRepo = DbRepoImpl(Room.databaseBuilder(context, EpisodeDB::class.java, "db-episode").build())
 
 }
@@ -46,7 +46,7 @@ class DatabaseModule{
 class SchedulerModule{
 
     @Provides
-    @Singleton
+    @AppScope
     fun provideSchedulers(): SchedulersBase = object:SchedulersBase{
         override fun io(): Scheduler = Schedulers.io()
 
@@ -61,7 +61,7 @@ class SchedulerModule{
 class RetrofitModule{
 
     @Provides
-    @Singleton
+    @AppScope
     fun provideRetrofit(httpClient: OkHttpClient, gson: GsonConverterFactory, callAdapter: RxJava2CallAdapterFactory): Retrofit =
             Retrofit.Builder()
                     .client(httpClient)
@@ -71,7 +71,7 @@ class RetrofitModule{
                     .build()
 
     @Provides
-    @Singleton
+    @AppScope
     fun provideHttpClient(interceptor: Interceptor, cache: Cache): OkHttpClient =
             OkHttpClient
                     .Builder()
@@ -80,21 +80,21 @@ class RetrofitModule{
                     .build()
 
     @Provides
-    @Singleton
+    @AppScope
     fun provideInterceptor(): Interceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { Timber.d(it) })
             .apply { level = HttpLoggingInterceptor.Level.BASIC }
 
 
     @Provides
-    @Singleton
+    @AppScope
     fun provideCache(context: Context): Cache = Cache(context.cacheDir, 5 * 1024 * 1024)
 
     @Provides
-    @Singleton
+    @AppScope
     fun provideRxCallAdapter(): RxJava2CallAdapterFactory = RxJava2CallAdapterFactory.create()
 
     @Provides
-    @Singleton
+    @AppScope
     fun provideGson(): GsonConverterFactory = GsonConverterFactory.create()
 
 }
