@@ -22,9 +22,8 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
 
-import javax.inject.Singleton
 
-@Module
+@Module(includes = [RetrofitModule::class])
 class EpisodeServiceModule {
 
     @Provides
@@ -57,11 +56,11 @@ class SchedulerModule{
 
 }
 
-@Module(includes = [ContextModule::class])
+@Module
 class RetrofitModule{
 
     @Provides
-    @AppScope
+    @PresenterScope
     fun provideRetrofit(httpClient: OkHttpClient, gson: GsonConverterFactory, callAdapter: RxJava2CallAdapterFactory): Retrofit =
             Retrofit.Builder()
                     .client(httpClient)
@@ -71,7 +70,7 @@ class RetrofitModule{
                     .build()
 
     @Provides
-    @AppScope
+    @PresenterScope
     fun provideHttpClient(interceptor: Interceptor, cache: Cache): OkHttpClient =
             OkHttpClient
                     .Builder()
@@ -80,21 +79,21 @@ class RetrofitModule{
                     .build()
 
     @Provides
-    @AppScope
+    @PresenterScope
     fun provideInterceptor(): Interceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { Timber.d(it) })
             .apply { level = HttpLoggingInterceptor.Level.BASIC }
 
 
     @Provides
-    @AppScope
+    @PresenterScope
     fun provideCache(context: Context): Cache = Cache(context.cacheDir, 5 * 1024 * 1024)
 
     @Provides
-    @AppScope
+    @PresenterScope
     fun provideRxCallAdapter(): RxJava2CallAdapterFactory = RxJava2CallAdapterFactory.create()
 
     @Provides
-    @AppScope
+    @PresenterScope
     fun provideGson(): GsonConverterFactory = GsonConverterFactory.create()
 
 }
