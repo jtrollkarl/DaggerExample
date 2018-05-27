@@ -30,7 +30,6 @@ class EpisodeListFragment : MvpFragment<EpisodeListContract.View, EpisodeListCon
     private lateinit var recyclerAdapter: EpisodeListRecycler
     private var isFavoritesSelected: Boolean = false
 
-
     override fun createPresenter(): EpisodeListContract.Actions = buildPresenter()
 
     override fun onAttach(context: Context?) {
@@ -51,7 +50,7 @@ class EpisodeListFragment : MvpFragment<EpisodeListContract.View, EpisodeListCon
         } ?: false
 
         val lm = LinearLayoutManager(context)
-        recycler_episodes.apply {
+        recycler_episodes.run {
             layoutManager = lm
             addItemDecoration(DividerItemDecoration(context, lm.orientation))
         }
