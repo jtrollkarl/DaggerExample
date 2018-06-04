@@ -18,10 +18,10 @@ class EpisodeDetailPresenter @Inject constructor(private val dbRepo: DbRepo,
                 .observeOn(schedulersBase.ui())
                 .flatMap { list ->
                     if (list.isEmpty()) {
-                        Timber.d("Episode ${episodeData.number} did not exist. Inserting...")
+                        Timber.d("Episode ${episodeData.id} did not exist. Inserting...")
                         return@flatMap dbRepo.insertEpisodes(episodeData).toFlowable<Unit>().subscribeOn(schedulersBase.io()).observeOn(schedulersBase.ui())
                     } else {
-                        Timber.d("Episode ${episodeData.number} existed. Deleting...")
+                        Timber.d("Episode ${episodeData.id} existed. Deleting...")
                         return@flatMap dbRepo.deleteEpisode(episodeData).toFlowable<Unit>().subscribeOn(schedulersBase.io()).observeOn(schedulersBase.ui())
                     }
                 }.subscribe(
