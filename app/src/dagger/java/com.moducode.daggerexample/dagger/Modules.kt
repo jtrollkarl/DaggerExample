@@ -32,29 +32,6 @@ class EpisodeServiceModule {
 
 }
 
-@Module(includes = [ContextModule::class])
-class DatabaseModule{
-
-    @Provides
-    @AppScope
-    fun provideDatabase(context: Context): DbRepo = DbRepoImpl(Room.databaseBuilder(context, EpisodeDB::class.java, "db-episode").build())
-
-}
-
-@Module
-class SchedulerModule{
-
-    @Provides
-    @AppScope
-    fun provideSchedulers(): SchedulersBase = object:SchedulersBase{
-        override fun io(): Scheduler = Schedulers.io()
-
-        override fun ui(): Scheduler = AndroidSchedulers.mainThread()
-
-        override fun compute(): Scheduler = Schedulers.computation()
-    }
-
-}
 
 @Module
 class RetrofitModule{
@@ -97,6 +74,30 @@ class RetrofitModule{
     fun provideGson(): GsonConverterFactory = GsonConverterFactory.create()
 
 }
+
+@Module(includes = [ContextModule::class])
+class DatabaseModule{
+
+    @Provides
+    @AppScope
+    fun provideDatabase(context: Context): DbRepo = DbRepoImpl(Room.databaseBuilder(context, EpisodeDB::class.java, "db-episode").build())
+
+}
+
+@Module
+class SchedulerModule{
+
+    @Provides
+    @AppScope
+    fun provideSchedulers(): SchedulersBase = object:SchedulersBase{
+        override fun io(): Scheduler = Schedulers.io()
+
+        override fun ui(): Scheduler = AndroidSchedulers.mainThread()
+
+        override fun compute(): Scheduler = Schedulers.computation()
+    }
+}
+
 
 @Module
 class ContextModule(val context: Context) {

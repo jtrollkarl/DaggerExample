@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.hannesdorfmann.mosby3.mvp.viewstate.MvpViewStateFragment
 import com.moducode.daggerexample.R
 import com.moducode.daggerexample.data.EpisodeData
 import com.moducode.daggerexample.toPx
@@ -31,7 +32,7 @@ class EpisodeListRecycler(private val data: List<EpisodeData>,
         fun bind(episode: EpisodeData, func: (EpisodeData) -> Unit) {
             itemView.tv_episode_title.text = episode.name
             itemView.tv_episode_season_number.text = itemView.context.getString(R.string.tv_season_ep, episode.season, episode.number)
-            Glide.with(itemView.context).apply { RequestOptions.overrideOf(100.toPx()).fitCenter() }.load(episode.image.medium).into(itemView.iv_episode_image)
+            Glide.with(itemView.context).applyDefaultRequestOptions(RequestOptions().override(100.toPx()).fitCenter()).load(episode.image.medium).into(itemView.iv_episode_image)
             itemView.setOnClickListener { func(episode) }
         }
     }
