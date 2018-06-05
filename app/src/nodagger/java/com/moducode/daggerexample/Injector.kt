@@ -11,19 +11,17 @@ import com.moducode.daggerexample.ui.fragment.contract.EpisodeDetailContract
 import com.moducode.daggerexample.ui.fragment.contract.EpisodeListContract
 
 
-fun EpisodeDetailFragment.buildPresenter(): EpisodeDetailContract.Actions {
-    return EpisodeDetailPresenter(
-            DbRepoImpl(Room.databaseBuilder(this@buildPresenter.context?.applicationContext!!, EpisodeDB::class.java, "db-episodes").build()),
-            SchedulersImpl())
-}
+fun EpisodeDetailFragment.buildPresenter(): EpisodeDetailContract.Actions =
+        EpisodeDetailPresenter(
+                DbRepoImpl(Room.databaseBuilder(this@buildPresenter.context?.applicationContext!!, EpisodeDB::class.java, "db-episodes").build()),
+                SchedulersImpl())
 
 
-fun EpisodeListFragment.buildPresenter(): EpisodeListContract.Actions {
-    return EpisodeListPresenter(RetrofitFactory.create(this@buildPresenter.context?.cacheDir!!, EpisodeService::class.java),
-            SchedulersImpl(),
-            DbRepoImpl(Room.databaseBuilder(this@buildPresenter.context?.applicationContext!!, EpisodeDB::class.java, "db-episodes").build())
-    )
-}
+fun EpisodeListFragment.buildPresenter(): EpisodeListContract.Actions =
+        EpisodeListPresenter(RetrofitFactory.create(this@buildPresenter.context?.cacheDir!!, EpisodeService::class.java),
+                SchedulersImpl(),
+                DbRepoImpl(Room.databaseBuilder(this@buildPresenter.context?.applicationContext!!, EpisodeDB::class.java, "db-episodes").build()))
+
 
 
 
