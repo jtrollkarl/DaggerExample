@@ -4,4 +4,4 @@ This project demonstrates the basics of Dagger2 in Kotlin, covering the followin
 
 The project itself is a simple app which fetches and parses JSON data containing South Park episodes. The user can save/delete episodes to a favourites list, as well as view specific episode details.
 
-Checkout the full article here: https://moducode.com/blog/android-tutorial-dagger-kotlin/
+Check out the full article here: https://moducode.com/blog/android-tutorial-dagger-kotlin/
