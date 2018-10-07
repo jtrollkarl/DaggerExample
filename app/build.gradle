@@ -60,6 +60,12 @@ dependencies {
     //dagger2
     implementation 'com.google.dagger:dagger:2.6'
     kapt 'com.google.dagger:dagger-compiler:2.6'
+
+    //paging
+    implementation "android.arch.paging:runtime:1.0.1"
+    // without Android dependencies for testing
+    testImplementation 'android.arch.paging:common:1.0.1'
+    implementation "android.arch.paging:rxjava2:1.0.1"
     //timber
     implementation 'com.jakewharton.timber:timber:4.7.0'
     //retrofit

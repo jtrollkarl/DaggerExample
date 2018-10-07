@@ -14,7 +14,7 @@ class EpisodeDetailContainer: SingleFragmentActivity() {
     }
 
     companion object {
-        fun newIntent(context: Context, data: EpisodeData): Intent{
+        fun newIntent(context: Context, data: EpisodeData?): Intent{
             return Intent(context, EpisodeDetailContainer::class.java).apply { putExtra(EpisodeDetailFragment.ARG_EPISODE, data) }
         }
     }

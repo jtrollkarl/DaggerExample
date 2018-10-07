@@ -13,7 +13,7 @@ import com.moducode.daggerexample.toPx
 import kotlinx.android.synthetic.main.episode_list_item.view.*
 
 class EpisodeListRecycler(private val data: List<EpisodeData>,
-                          private val func: (EpisodeData) -> Unit)
+                          private val func: (EpisodeData?) -> Unit)
     : RecyclerView.Adapter<EpisodeListRecycler.EpisodeHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EpisodeHolder {
@@ -29,10 +29,10 @@ class EpisodeListRecycler(private val data: List<EpisodeData>,
 
     class EpisodeHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bind(episode: EpisodeData, func: (EpisodeData) -> Unit) {
-            itemView.tv_episode_title.text = episode.name
-            itemView.tv_episode_season_number.text = itemView.context.getString(R.string.tv_season_ep, episode.season, episode.number)
-            Glide.with(itemView.context).applyDefaultRequestOptions(RequestOptions().override(100.toPx()).fitCenter()).load(episode.image.medium).into(itemView.iv_episode_image)
+        fun bind(episode: EpisodeData?, func: (EpisodeData?) -> Unit) {
+            itemView.tv_episode_title.text = episode?.name
+            itemView.tv_episode_season_number.text = itemView.context.getString(R.string.tv_season_ep, episode?.season, episode?.number)
+            Glide.with(itemView.context).applyDefaultRequestOptions(RequestOptions().override(100.toPx()).fitCenter()).load(episode?.image?.medium).into(itemView.iv_episode_image)
             itemView.setOnClickListener { func(episode) }
         }
     }

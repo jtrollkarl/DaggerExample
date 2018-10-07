@@ -1,6 +1,7 @@
 package com.moducode.daggerexample.ui.fragment
 
 
+import android.arch.paging.PagedList
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
@@ -13,13 +14,14 @@ import com.moducode.daggerexample.buildPresenter
 import com.moducode.daggerexample.data.EpisodeData
 import com.moducode.daggerexample.shortToast
 import com.moducode.daggerexample.ui.adapter.EpisodeListRecycler
+import com.moducode.daggerexample.ui.adapter.EpisodePagedAdapter
 import com.moducode.daggerexample.ui.fragment.contract.EpisodeListContract
 import kotlinx.android.synthetic.main.fragment_episode_list.*
 
 class EpisodeListFragment : MvpFragment<EpisodeListContract.View, EpisodeListContract.Actions>(), EpisodeListContract.View {
 
     interface Callbacks {
-        fun onEpisodeClick(data: EpisodeData)
+        fun onEpisodeClick(data: EpisodeData?)
     }
 
     companion object {
@@ -27,7 +29,7 @@ class EpisodeListFragment : MvpFragment<EpisodeListContract.View, EpisodeListCon
     }
 
     private lateinit var listener: Callbacks
-    private lateinit var recyclerAdapter: EpisodeListRecycler
+    private lateinit var recyclerAdapter: EpisodePagedAdapter
     private var isFavoritesSelected: Boolean = false
 
 
@@ -95,11 +97,10 @@ class EpisodeListFragment : MvpFragment<EpisodeListContract.View, EpisodeListCon
         listener.onEpisodeClick(episode)
     }
 
-    override fun setData(data: List<EpisodeData>) {
-        recyclerAdapter = EpisodeListRecycler(data, { listener.onEpisodeClick(it) }).apply {
-            notifyDataSetChanged()
-        }
+    override fun setData(data: PagedList<EpisodeData>) {
+        recyclerAdapter = EpisodePagedAdapter { listener.onEpisodeClick(it) }
         recycler_episodes.adapter = recyclerAdapter
+        recyclerAdapter.submitList(data)
     }
 
     override fun showError(error: Throwable) {

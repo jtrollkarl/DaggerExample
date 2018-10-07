@@ -9,7 +9,7 @@ class EpisodeListContainer : SingleFragmentActivity(), EpisodeListFragment.Callb
 
     override fun getFragment(): Fragment = EpisodeListFragment()
 
-    override fun onEpisodeClick(data: EpisodeData) {
+    override fun onEpisodeClick(data: EpisodeData?) {
         startActivity(EpisodeDetailContainer.newIntent(this, data))
     }
 }
