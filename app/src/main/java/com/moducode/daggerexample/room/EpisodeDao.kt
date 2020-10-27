@@ -1,6 +1,6 @@
 package com.moducode.daggerexample.room
 
-import android.arch.persistence.room.*
+import androidx.room.*
 import com.moducode.daggerexample.data.EpisodeData
 
 @Dao

@@ -1,9 +1,9 @@
 package com.moducode.daggerexample
 
 import android.content.res.Resources
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentTransaction
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import android.widget.Toast
 
 inline fun FragmentManager.doTransaction(func: FragmentTransaction.() -> Unit){

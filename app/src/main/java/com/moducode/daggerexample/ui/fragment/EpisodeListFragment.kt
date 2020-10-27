@@ -1,10 +1,9 @@
 package com.moducode.daggerexample.ui.fragment
 
-
 import android.content.Context
 import android.os.Bundle
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.*
 import com.hannesdorfmann.mosby3.mvp.MvpFragment
 
@@ -32,7 +31,7 @@ class EpisodeListFragment : MvpFragment<EpisodeListContract.View, EpisodeListCon
 
     override fun createPresenter(): EpisodeListContract.Actions = buildPresenter()
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         listener = context as Callbacks
     }
@@ -65,13 +64,13 @@ class EpisodeListFragment : MvpFragment<EpisodeListContract.View, EpisodeListCon
         if (isFavoritesSelected) presenter.fetchFavourites() else presenter.fetchEpisodes()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater?.inflate(R.menu.episode_list_menu, menu)
+        inflater.inflate(R.menu.episode_list_menu, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean =
-            when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean =
+            when (item.itemId) {
                 R.id.menu_filter_fav -> {
                     isFavoritesSelected = true
                     fetchEpisodes()

@@ -1,7 +1,7 @@
 package com.moducode.daggerexample.ui.activity
 
 
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import com.moducode.daggerexample.data.EpisodeData
 import com.moducode.daggerexample.ui.fragment.EpisodeListFragment
 

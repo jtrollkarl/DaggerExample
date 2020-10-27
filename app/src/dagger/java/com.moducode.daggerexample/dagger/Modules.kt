@@ -1,6 +1,6 @@
 package com.moducode.daggerexample.dagger
 
-import android.arch.persistence.room.Room
+import androidx.room.Room
 import android.content.Context
 import com.moducode.daggerexample.room.DbRepo
 import com.moducode.daggerexample.room.DbRepoImpl
@@ -80,8 +80,11 @@ class RetrofitModule{
 
     @Provides
     @Singleton
-    fun provideInterceptor(): Interceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { Timber.d(it) })
-            .apply { level = HttpLoggingInterceptor.Level.BASIC }
+    fun provideInterceptor(): Interceptor = HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger{
+        override fun log(message: String) {
+            Timber.d(message)
+        }
+    }).apply { level = HttpLoggingInterceptor.Level.BASIC }
 
 
     @Provides
